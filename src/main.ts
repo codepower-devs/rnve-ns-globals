@@ -30,6 +30,7 @@ async function bootstrap() {
     name: packageJson.name,
     port: process.env.PORT || '3000',
     version: packageJson.version,
+    typeService: 'microservice',
   });
 }
 
