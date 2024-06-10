@@ -1,0 +1,9 @@
+export { Departamentos } from './departamentos.entity';
+export { EstablecimientosGestion } from './establecimientos_gestion.entity';
+export { Establecimientos } from './establecimientos.entity';
+export { Instituciones } from './instituciones.entity';
+export { Municipios } from './municipios.entity';
+export { Provincias } from './provincias.entity';
+export { Red } from './red.entity';
+export { Subsectores } from './subsectores.entity';
+export { NivelInformacion } from './nivel-informacion.entity';
