@@ -1,10 +1,9 @@
-import { Brackets, DataSource } from 'typeorm';
+import { PaginacionQueryDto } from '@/common/dto/paginacion-query.dto';
 import { Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
+import { Brackets, DataSource } from 'typeorm';
 import { ActualizarGlobalsDto, CrearGlobalsDto } from '../dto';
 import { Globals } from '../entity';
-import { GlobalsEstado } from '../constant';
-import { PaginacionQueryDto } from '@/common/dto/paginacion-query.dto';
-import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class GlobalsRepository {
@@ -88,9 +87,6 @@ export class GlobalsRepository {
       ])
       .where('globals.grupo = :grupo', {
         grupo,
-      })
-      .andWhere('globals.estado = :estado', {
-        estado: GlobalsEstado.ACTIVO,
       })
       .getMany();
   }
