@@ -1,6 +1,5 @@
-import { DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { GlobalsEstado } from '../constant';
+import { DataSource } from 'typeorm';
 import { NivelInformacion } from '../entity';
 
 @Injectable()
@@ -16,9 +15,6 @@ export class NivelInformacionRepository {
         'nivel_gestioninformacion.descripcion',
         'nivel_gestioninformacion.precedente',
       ])
-      .where('nivel_gestioninformacion.estado = :estado', {
-        estado: GlobalsEstado.ACTIVO,
-      })
       .getMany();
   }
 }
