@@ -1,22 +1,13 @@
-import { UtilService } from '@/common/lib/util.service';
-import {
-  BeforeInsert,
-  Check,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
 import dotenv from 'dotenv';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 dotenv.config();
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'establecimientos',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  synchronize: false,
 })
-export class Establecimientos extends AuditoriaEntity {
+export class Establecimientos {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -24,75 +15,105 @@ export class Establecimientos extends AuditoriaEntity {
   })
   id: string;
 
-  @Column()
+  @Column({
+    name: 'establecimiento',
+    nullable: true,
+  })
   establecimiento: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'subsector',
+    nullable: true,
+  })
   subsector: string;
 
   @Column({
     name: 'institucion_id',
+    nullable: true,
   })
   institucionId: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'institucion',
+    nullable: true,
+  })
   institucion: string;
 
-  @Column()
+  @Column({
+    name: 'tipo',
+    nullable: true,
+  })
   tipo: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'nivel',
+    nullable: true,
+  })
   nivel: string;
 
-  @Column()
+  @Column({
+    name: 'ambito',
+    nullable: true,
+  })
   ambito: string;
 
   @Column({
     name: 'departamento_id',
+    nullable: true,
   })
   departamentoId: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'departamento',
+    nullable: true,
+  })
   departamento: string;
 
   @Column({
     name: 'red_id',
+    nullable: true,
   })
   redId: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'red',
+    nullable: true,
+  })
   red: string;
 
   @Column({
     name: 'municipio_id',
+    nullable: true,
   })
   municipioId: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'municipio',
+    nullable: true,
+  })
   municipio: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'localidad',
+    nullable: true,
+  })
   localidad: string;
 
   @Column({
     name: 'idgestion',
+    nullable: true,
   })
   gestionId: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'gestion',
+    nullable: true,
+  })
   bajalogica: string;
 
   @Column({
     name: 'estado_id',
+    default: '1',
   })
   estadoId: string;
-
-  constructor(data?: Partial<Establecimientos>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
 }

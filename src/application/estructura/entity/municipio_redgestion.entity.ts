@@ -1,27 +1,21 @@
-import { UtilService } from '@/common/lib/util.service';
+import dotenv from 'dotenv';
 import {
-  BeforeInsert,
-  Check,
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
-import dotenv from 'dotenv';
 import { Municipios } from './municipios.entity';
 import { Redgestion } from './red_gestion.entity';
 
 dotenv.config();
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'municipio_redgestion',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  synchronize: false,
 })
-export class Municipioredgestion extends AuditoriaEntity {
+export class Municipioredgestion {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -46,8 +40,6 @@ export class Municipioredgestion extends AuditoriaEntity {
   })
   idGestion: string;
 
-
-
   @ManyToOne(() => Municipios, (ent) => ent.id)
   @JoinColumn({ name: 'municipio_id', referencedColumnName: 'id' })
   municipios: Municipios;
@@ -60,8 +52,6 @@ export class Municipioredgestion extends AuditoriaEntity {
   @JoinColumn({ name: 'idgestion', referencedColumnName: 'idGestion' })
   muniRedGestionGes: Redgestion;
 
-
-
   // @OneToMany(() => Municipios, (ent) => ent.id)
   // municipios: Municipios;
 
@@ -70,13 +60,4 @@ export class Municipioredgestion extends AuditoriaEntity {
 
   // @OneToMany(() => Redgestion, (ent) => ent.idGestion)
   // muniRedGestionGes: Redgestion[];
-
-  constructor(data?: Partial<Municipioredgestion>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
 }

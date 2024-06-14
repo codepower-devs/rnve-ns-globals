@@ -1,22 +1,13 @@
-import { UtilService } from '@/common/lib/util.service';
-import {
-  BeforeInsert,
-  Check,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
 import dotenv from 'dotenv';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 dotenv.config();
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'subsectores',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  synchronize: false,
 })
-export class Subsectores extends AuditoriaEntity {
+export class Subsectores {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -32,13 +23,4 @@ export class Subsectores extends AuditoriaEntity {
 
   @Column()
   abrevsubsector: string;
-
-  constructor(data?: Partial<Subsectores>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
 }

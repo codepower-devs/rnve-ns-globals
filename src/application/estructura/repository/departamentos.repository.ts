@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { GlobalsEstado } from '../constant';
 import { Departamentos } from '../entity';
 import { Municipioredgestion } from '../entity/municipio_redgestion.entity';
 
@@ -17,9 +16,6 @@ export class DepartamentosRepository {
         'departamentos.departamento',
         'departamentos.sigladepto',
       ])
-      .where('departamentos.estado = :estado', {
-        estado: GlobalsEstado.ACTIVO,
-      })
       .getMany();
   }
 
