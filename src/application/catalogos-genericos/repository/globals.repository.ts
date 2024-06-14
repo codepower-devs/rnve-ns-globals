@@ -21,13 +21,10 @@ export class GlobalsRepository {
   }
 
   async actualizar(id: string, parametroDto: ActualizarGlobalsDto) {
-    const datosActualizar = new Globals({
-      ...parametroDto,
-    });
     try {
       return await this.dataSource
         .getRepository(Globals)
-        .update(id, datosActualizar);
+        .update(id, parametroDto);
     } catch (error) {
       console.log(error);
       throw new RpcException({
@@ -58,9 +55,6 @@ export class GlobalsRepository {
         break;
       case 'descripcion':
         query.addOrderBy('globals.descripcion', sentido);
-        break;
-      case 'estado':
-        query.addOrderBy('globals.estado', sentido);
         break;
       default:
         query.orderBy('globals.id', 'ASC');
@@ -103,8 +97,7 @@ export class GlobalsRepository {
 
   async crear(parametroDto: CrearGlobalsDto) {
     try {
-      const { grupo, descripcion, usuarioCreacion, catalogoId, tablaId } =
-        parametroDto;
+      const { grupo, descripcion, catalogoId, tablaId } = parametroDto;
 
       const parametro = new Globals();
 
@@ -112,7 +105,6 @@ export class GlobalsRepository {
       parametro.catalogoId = catalogoId;
       parametro.grupo = grupo;
       parametro.descripcion = descripcion;
-      parametro.usuarioCreacion = usuarioCreacion;
 
       return await this.dataSource.getRepository(Globals).save(parametro);
     } catch (error) {

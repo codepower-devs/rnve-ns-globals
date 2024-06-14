@@ -1,23 +1,15 @@
-import { UtilService } from '@/common/lib/util.service';
-import {
-  BeforeInsert,
-  Check,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
+import { Tablas } from '@/application/tablas-genericos/entity';
 import dotenv from 'dotenv';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 dotenv.config();
 
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'catalogos_genericos',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  synchronize: false,
 })
-export class Globals extends AuditoriaEntity {
+export class Globals {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -45,12 +37,6 @@ export class Globals extends AuditoriaEntity {
   @Column({ length: 255, type: 'varchar', comment: 'Descripción de parámetro' })
   descripcion: string;
 
-  constructor(data?: Partial<Globals>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
+  @ManyToOne(() => Tablas, (Tabla) => Tabla.tablaId)
+  tabla: Tablas;
 }

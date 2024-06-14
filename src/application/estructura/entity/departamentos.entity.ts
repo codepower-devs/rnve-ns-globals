@@ -1,22 +1,13 @@
-import { UtilService } from '@/common/lib/util.service';
-import {
-  BeforeInsert,
-  Check,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
 import dotenv from 'dotenv';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 dotenv.config();
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'departamentos',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  synchronize: false,
 })
-export class Departamentos extends AuditoriaEntity {
+export class Departamentos {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -24,18 +15,15 @@ export class Departamentos extends AuditoriaEntity {
   })
   id: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'departamento',
+    nullable: true,
+  })
   departamento: string;
 
-  @Column()
+  @Column('varchar', {
+    name: 'sigladepto',
+    nullable: true,
+  })
   sigladepto: string;
-
-  constructor(data?: Partial<Departamentos>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
 }
