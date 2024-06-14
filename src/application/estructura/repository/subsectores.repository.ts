@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { GlobalsEstado } from '../constant';
 import { Subsectores } from '../entity';
 
 @Injectable()
@@ -16,9 +15,6 @@ export class SubsectoresRepository {
         'subsectores.subsector',
         'subsectores.abrevsubsector',
       ])
-      .where('subsectores.estado = :estado', {
-        estado: GlobalsEstado.ACTIVO,
-      })
       .getMany();
   }
 }

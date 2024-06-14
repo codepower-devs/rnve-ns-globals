@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { GlobalsEstado } from '../constant';
 import { Provincias } from '../entity';
 
 @Injectable()
@@ -16,9 +15,6 @@ export class ProvinciasRepository {
         'provincias.provincia',
         'provincias.departamentoId',
       ])
-      .where('provincias.estado = :estado', {
-        estado: GlobalsEstado.ACTIVO,
-      })
       .andWhere('provincias.departamentoId = :deptoId', {
         deptoId,
       })
