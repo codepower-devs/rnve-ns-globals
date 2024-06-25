@@ -5,7 +5,7 @@ dotenv.config();
 @Entity({
   name: 'instituciones',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
-  synchronize: false,
+  // synchronize: false,
 })
 export class Instituciones {
   @PrimaryGeneratedColumn({

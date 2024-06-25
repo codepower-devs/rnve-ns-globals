@@ -1,5 +1,5 @@
 # Base image
-FROM node:18-alpine
+FROM node:21-alpine
 
 RUN node -v
 
@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 # env variables
-ENV NODE_ENV development
+ENV NODE_ENV quality
 
 # Creates a "dist" folder with the production build
 RUN npm run build

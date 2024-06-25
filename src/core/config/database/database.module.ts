@@ -1,7 +1,6 @@
-import { LoggerService, SQLLogger } from '../../logger';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -18,13 +17,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         entities: [__dirname + '../../../../**/*.entity{.ts,.js}'],
         keepConnectionAlive: true,
         synchronize: true,
-        logger: new SQLLogger({
-          logger: LoggerService.getInstance(),
-          level: {
-            query: configService.get('LOG_SQL') === 'true',
-            error: true,
-          },
-        }),
+        // logger: new SQLLogger({
+        //   logger: LoggerService.getInstance(),
+        //   level: {
+        //     query: configService.get('LOG_SQL') === 'true',
+        //     error: true,
+        //   },
+        // }),
       }),
     }),
   ],

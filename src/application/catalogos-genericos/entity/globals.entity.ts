@@ -7,7 +7,7 @@ dotenv.config();
 @Entity({
   name: 'catalogos_genericos',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
-  synchronize: false,
+  // synchronize: false,
 })
 export class Globals {
   @PrimaryGeneratedColumn({

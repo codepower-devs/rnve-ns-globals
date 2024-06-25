@@ -12,7 +12,7 @@ dotenv.config();
 @Entity({
   name: 'red_gestion',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
-  synchronize: false,
+  //synchronize: false,
 })
 export class Redgestion {
   @PrimaryGeneratedColumn({
