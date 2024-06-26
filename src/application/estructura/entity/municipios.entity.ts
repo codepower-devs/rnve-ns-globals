@@ -1,26 +1,20 @@
-import { UtilService } from '@/common/lib/util.service';
+import dotenv from 'dotenv';
 import {
-  BeforeInsert,
-  Check,
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AuditoriaEntity } from '@/common/entity/auditoria.entity';
-import { GlobalsEstado } from '../constant';
-import dotenv from 'dotenv';
 import { Municipioredgestion } from './municipio_redgestion.entity';
 
 dotenv.config();
-@Check(UtilService.buildStatusCheck(GlobalsEstado))
 @Entity({
   name: 'municipios',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
+  // synchronize: false,
 })
-export class Municipios extends AuditoriaEntity {
+export class Municipios {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'id',
@@ -38,15 +32,6 @@ export class Municipios extends AuditoriaEntity {
   })
   municipio: string;
 
-  constructor(data?: Partial<Municipios>) {
-    super(data);
-  }
-
-  @BeforeInsert()
-  insertarEstado() {
-    this.estado = this.estado || GlobalsEstado.ACTIVO;
-  }
-  
   @OneToMany(() => Municipioredgestion, (mun) => mun.id)
   @JoinColumn({ name: 'id', referencedColumnName: 'municipioId' })
   muniRedGestion: Municipioredgestion;

@@ -1,14 +1,13 @@
 #ignoring dirs
+node_modules
+dist
 ./node_modules
 ./dist
-./.next
-./.nuxt
 
 #ignoring dotfiles
 .dockerignore
 #.eslintrc.js
 .env.sample
-.env
 #.prettierrc
 .gitignore
 .git

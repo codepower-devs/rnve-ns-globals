@@ -14,7 +14,7 @@ import { CoreModule } from './core/core.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.${process.env.NODE_ENV}`],
+      // envFilePath: [join(`.env.${process.env.NODE_ENV}`)],
     }),
     ScheduleModule.forRoot(), //cron
     CoreModule,
@@ -37,3 +37,4 @@ export class AppModule {
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
+console.log(process.env.PORT);
