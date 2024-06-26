@@ -39,6 +39,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   await app.listen();
+  console.log(`Application is running on: ${process.env.NATS_SERVER}`);
 
   printLogo();
   printInfo({

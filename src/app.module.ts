@@ -9,13 +9,12 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { TimeoutInterceptor } from './common/interceptors';
 import { LoggerMiddleware } from './common/middlewares';
 import { CoreModule } from './core/core.module';
-import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [join(`.env.${process.env.NODE_ENV}`)],
+      // envFilePath: [join(`.env.${process.env.NODE_ENV}`)],
     }),
     ScheduleModule.forRoot(), //cron
     CoreModule,

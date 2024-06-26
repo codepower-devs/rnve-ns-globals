@@ -12,7 +12,7 @@ dotenv.config();
 @Entity({
   name: 'red_gestion',
   schema: process.env.DB_SCHEMA_PARAMETRICAS,
-  //synchronize: false,
+  synchronize: false,
 })
 export class Redgestion {
   @PrimaryGeneratedColumn({
@@ -37,14 +37,6 @@ export class Redgestion {
   })
   departamentoId: string;
 
-  // @Column({
-  //   name: 'estado_id',
-  // })
-  // estadoId?: string | null;
-
-  // @OneToMany(() => Municipioredgestion, (mun) => mun.redId)
-  // municipioRedGestion: Municipioredgestion
-
   @OneToMany(() => Municipioredgestion, (mun) => mun.idGestion)
   @JoinColumn({ name: 'idgestion', referencedColumnName: 'idGestion' })
   muniRedGestion: Municipioredgestion[];
@@ -52,12 +44,4 @@ export class Redgestion {
   @OneToMany(() => Municipioredgestion, (mun) => mun.redId)
   @JoinColumn({ name: 'red_id', referencedColumnName: 'redId' })
   muniRedId: Municipioredgestion[];
-
-  // @ManyToOne(() => Municipioredgestion)
-  // @JoinColumn({ name: 'idgestion', referencedColumnName: 'idGestion' })
-  // muniRedGestion: Municipioredgestion;
-
-  // @ManyToOne(() => Municipioredgestion)
-  // @JoinColumn({ name: 'red_id', referencedColumnName: 'redId' })
-  // muniRedId: Municipioredgestion;
 }

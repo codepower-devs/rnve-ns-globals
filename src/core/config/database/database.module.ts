@@ -16,7 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: configService.get('DB_DATABASE'),
         entities: [__dirname + '../../../../**/*.entity{.ts,.js}'],
         keepConnectionAlive: true,
-        synchronize: true,
+        synchronize: false,
         // logger: new SQLLogger({
         //   logger: LoggerService.getInstance(),
         //   level: {
